@@ -5,23 +5,23 @@
 
 using namespace std;
 
-double CompoundAmount(double principal, double annualInterestRate, int years){
-    double monthlyInterestRate = (annualInterestRate / 100) / 12;
+int CompoundAmount(int principal, int annualInterestRate, int years){
+    int monthlyInterestRate = (annualInterestRate / 100) / 12;
 
 
-    double compoundAmount = (principal * pow((1+monthlyInterestRate/12),12*years));
+    int compoundAmount = (principal * pow((1+monthlyInterestRate/12),12*years));
 
     return compoundAmount;
 }
-double calculateMonthlyPayment(double principal, double annualInterestRate, int years) {
+int calculateMonthlyPayment(int principal, int annualInterestRate, int years) {
     // Convert annual interest rate to monthly and percentage to decimal
-    double monthlyInterestRate = (annualInterestRate / 100) / 12;
+    int monthlyInterestRate = (annualInterestRate / 100) / 12;
     
     // Total number of payments (months)
     int totalPayments = years * 12;
     
     // Monthly payment formula
-    double monthlyPayment = (principal * monthlyInterestRate * pow(1 + monthlyInterestRate, totalPayments)) /
+    int monthlyPayment = (principal * monthlyInterestRate * pow(1 + monthlyInterestRate, totalPayments)) /
                             (pow(1 + monthlyInterestRate, totalPayments) - 1);
 
     return monthlyPayment;
@@ -53,7 +53,7 @@ int main(){
     cout << "===================================================================================================="<<endl;
     cout << "$"<< lvalue <<"       \t"<<interestRate<<"%               \t"<<lyears<<"years                \t"<<"$"<<monthlypayment <<"     \t"<<endl; 
 
-
+    //Loop that doesnt close until the whole debt is paid
     while (compoundperyear>=0){
         cout << "Enter the amount you want to pay"<<endl;
         cin >> repay;
