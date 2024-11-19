@@ -6,7 +6,7 @@ using namespace std;
 
 int main(){
 
-    cout<<" Simple hotel booking system"<< endl;
+    cout<<"hotel booking system"<< endl;
 
   return 0;
 }
