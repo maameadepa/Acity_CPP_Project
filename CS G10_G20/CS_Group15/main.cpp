@@ -1,5 +1,8 @@
 #include <iostream>
+#include "Student.h"
 
-main(){
-    
+using namespace std;
+
+int main() {
+    return 0;
 }
