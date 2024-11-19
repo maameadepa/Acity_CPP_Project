@@ -1,8 +1,8 @@
- #include <iostream>
- #include <iomainp>
- using namespace std;
+#include <iostream> 
+#include <iomanip>
 
- int main(){
-    cout<<"Push to start"
+using namespace std;
+int main(){
+    cout<<"push file";
     return 0;
- }
+}
