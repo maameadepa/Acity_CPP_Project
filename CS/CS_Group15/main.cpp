@@ -1,10 +1,8 @@
 #include <iostream>
+#include "Student.h"
 
 using namespace std;
 
-int main(){
-    cout<<"Hey"<<endl;
-
-
+int main() {
     return 0;
 }
