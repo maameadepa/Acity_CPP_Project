@@ -1,7 +1,8 @@
 #include <iostream>
+
 using namespace std;
 
 int main(){
-    cout <<"\n My name is Trypheana.";
-    return 0;
+   cout << "Welcome to our Online shop";
+   return 0;
 }
