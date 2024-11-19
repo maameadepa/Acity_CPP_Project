@@ -67,5 +67,3 @@ Position: Warehouse Associate
 Department: Operations
 Salary: $18/hour
 Type: Hourly
-
-
