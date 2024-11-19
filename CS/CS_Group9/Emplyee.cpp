@@ -1,5 +1,2 @@
 #include<iostream>
-// create main function 
-int main(int , char)
-
-
+// create main function
