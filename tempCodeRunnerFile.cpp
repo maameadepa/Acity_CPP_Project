@@ -1,7 +1,10 @@
 #include <iostream>
+
 using namespace std;
 
 int main(){
-    cout <<"\n My name is Trypheana.";
+    cout<<"Hey"<<endl;
+
+
     return 0;
 }
