@@ -1,5 +1,5 @@
-#ifndef TASK_H; 
-#define TASK_H; 
+#ifndef TASK_H
+#define TASK_H
 
 #include <string> 
 #include <ctime> 
@@ -23,7 +23,6 @@ class Task {
     public: 
 
     Task(const string& title,const string& description, Priority priority, time_t deadline);
-
 //GETTERS
     string getTitle() const {
         return title;
@@ -62,4 +61,4 @@ class Task {
     
 }; 
 
-#endif; 
+#endif
