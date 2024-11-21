@@ -13,3 +13,106 @@ Subject 7 Marks: 78| Grade: 	 B
 Total Marks: 541
 Average    : 77.2857
 Remarks      : Good job! Aim a little higher!
+
+--------- Report Card ---------
+Name       : K
+Roll Number: 34
+Course     : Computer Science
+
+Programming in C++ Marks: 89 | Grade: 	 B
+Data Structures Marks: 55 | Grade: 	 C
+Database Systems Marks: 33 | Grade: 	 D
+Operations Research Marks: 90 | Grade: 	 A
+Calculus II Marks: 100 | Grade: 	 A
+
+Total Marks: 367
+Average    : 73.4
+Remarks    : You try. There's room for improvement.
+
+--------- Report Card ---------
+Name       : k
+Roll Number: 22
+Course     : Computer Science
+
+Programming in C++ Marks: 		67 | Grade: 		 C
+Data Structures Marks: 		78 | Grade: 		 B
+Database Systems Marks: 		98 | Grade: 		 A
+Operations Research Marks: 		88 | Grade: 		 B
+Calculus II Marks: 		90 | Grade: 		 A
+
+Total Marks: 421
+Average    : 84.2
+Remarks    : Good job. You force.
+
+--------- Report Card ---------
+Name       : k 
+Roll Number: 22
+Course     : Computer Science
+
+Programming in C++			:66 | Grade: 		 C
+Data Structures			:77 | Grade: 		 B
+Database Systems			:77 | Grade: 		 B
+Operations Research			:67 | Grade: 		 C
+Calculus II			:88 | Grade: 		 B
+
+Total Marks: 375
+Average    : 75
+Remarks    : Good job. You force.
+
+--------- Report Card ---------
+Name       : k
+Roll Number: 33
+Course     : Computer Science
+
+Programming in C++ 	:44 | Grade: 		 D
+Data Structures    	:44 | Grade: 		 D
+Database Systems   	:44 | Grade: 		 D
+Operations Research	:44 | Grade: 		 D
+Calculus & Matlab  	:44 | Grade: 		 D
+
+Total Marks: 220
+Average    : 44
+Remarks    : Needs improvement. Don't give up.
+
+--------- Report Card ---------
+Name       : k
+Roll Number: 22
+Course     : Information Technology
+
+Business in Africa   	: 89 | Grade: 		 B
+Web Development      	: 44 | Grade: 		 D
+System Administration	: 44 | Grade: 		 D
+Database Systems     	: 44 | Grade: 		 D
+Cybersecurity        	: 44 | Grade: 		 D
+
+Total Marks: 265
+Average    : 53
+Remarks    : You try. There's room for improvement.
+
+--------- Report Card ---------
+Name       : 
+--------- Report Card ---------
+Name       : 
+--------- Report Card ---------
+Name       : 
+--------- Report Card ---------
+Name       : 
+--------- Report Card ---------
+Name       : 
+--------- Report Card ---------
+Name       : k
+Roll Number: 1
+Course     : Information Technology
+
+Business in Africa   	: 66 | Grade: 		 C
+Web Development      	: 66 | Grade: 		 C
+System Administration	: 66 | Grade: 		 C
+Database Systems     	: 66 | Grade: 		 C
+Cybersecurity        	: 66 | Grade: 		 C
+Leadership Seminar   	: 66 | Grade: 		 C
+Data Structures      	: 66 | Grade: 		 C
+F. I .E              	: 66 | Grade: 		 C
+
+Total Marks: 528
+Average    : 66
+Remarks    : You try. There's room for improvement.
