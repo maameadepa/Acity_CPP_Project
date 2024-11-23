@@ -29,7 +29,7 @@ int main(){
                      cout<<"1. View Inventory"<<endl;
                      cout<<"2. Update Inventory"<<endl;
                      cout<<"3. Logout"<<endl;
-                     cout<<" Enter your choice:";
+                     cout<<"Enter your choice:";
                      cin>>adminChoice;
 
 
