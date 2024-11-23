@@ -9,7 +9,7 @@ int main(){
     int adminChoice;
 
     while (true){
-        cout<<"\nWelcome to the Joojo & Wuni's Stationery shop!"<<endl;
+        cout<<"\nWelcome to the Joojo & Wuni's Stationery Shop!"<<endl;
         cout<<"1. Admin  Login"<<endl;
         cout<<"2. Customer Menu"<<endl;
         cout<<"3. Exit"<<endl;
