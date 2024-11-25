@@ -1,8 +1,9 @@
 #include <iostream>
-#include "ProductClass.h"
+#include "AdminClass.h"
 using namespace std;
 
-int main(){
+int main() {
+    Admin admin;
     int choice;
     string username;
     string password;
@@ -32,14 +33,38 @@ int main(){
                      cout<<"Enter your choice:";
                      cin>>adminChoice;
 
+                     if (adminChoice == 1) {
+                        admin.viewInventory();
+                    } else if (adminChoice == 2) {
+                        string productName;
+                        int quantity;
+                        bool isAdding;
 
+                        cout << "Enter product name to update: ";
+                        cin >> productName;
+                        cout << "Enter quantity: ";
+                        cin >> quantity;
+                        cout << "Are you adding to stock? (1 for Yes, 0 for No): ";
+                        cin >> isAdding;
+
+                        admin.updateInventory(productName, quantity, isAdding);
+
+                } else if (adminChoice == 3) {
+                        cout << "Logging out of Admin Menu..." << endl;
+                        break;
+                    } else {
+                        cout << "Invalid choice! Please try again." << endl;
+                    }
                 }
+
+            }else {
+                cout << "Invalid Logins! Access denied." << endl;
             }
-
-
+            break;
         }
 
-
+        case 2:{
+            
         }
 
 
