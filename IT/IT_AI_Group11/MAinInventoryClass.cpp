@@ -13,7 +13,7 @@ int main(){
         cout<<"1. Admin  Login"<<endl;
         cout<<"2. Customer Menu"<<endl;
         cout<<"3. Exit"<<endl;
-        cout<<" Enter your choice:";
+        cout<<"Enter your choice:";
         cin>>choice;
 
         switch(choice){
