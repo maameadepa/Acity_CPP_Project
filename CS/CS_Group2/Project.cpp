@@ -1,10 +1,10 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
+#include <vector> //for precised arrays
 #include <iomanip>
 #include <string>
 #include <cstdlib>
-#include <limits>  // Include this header for numeric_limits
+#include <limits>
 
 using namespace std;
 
@@ -14,7 +14,7 @@ private:
     string title;
     string author;
     int id;
-    bool isAvailable; // true if available, false if borrowed
+    bool isAvailable;
 public:
     Book(string t, string a, int i) {
         title = t;
