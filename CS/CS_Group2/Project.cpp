@@ -5,7 +5,7 @@
 #include <string>
 #include <cstdlib>
 #include <limits>
-
+#include <algorithm> // to find value in range
 using namespace std;
 
 // Book Class
@@ -41,15 +41,37 @@ class Member {
 protected:
     string name;
     int memberId;
+    vector<int> borrowedBooks; // Store book IDs borrowed by this member
 public:
     Member(string n, int id) : name(n), memberId(id) {}
+
     virtual void displayMember() {
         cout << setw(5) << memberId << setw(20) << name << endl;
     }
 
-    void displayMemberToFile(ofstream &file) {
-        file << setw(5) << memberId << setw(20) << name << endl;
+    void addBorrowedBook(int bookId) {
+        borrowedBooks.push_back(bookId);
     }
+
+    void returnBorrowedBook(int bookId) {
+        auto it = find(borrowedBooks.begin(), borrowedBooks.end(), bookId);
+        if (it != borrowedBooks.end()) {
+            borrowedBooks.erase(it);
+        }
+    }
+
+    void displayBorrowedBooks() {
+        cout << "Books borrowed by " << name << " (ID: " << memberId << "):\n";
+        if (borrowedBooks.empty()) {
+            cout << "No books borrowed.\n";
+        } else {
+            for (int bookId : borrowedBooks) {
+                cout << "Book ID: " << bookId << endl;
+            }
+        }
+    }
+
+    int getId() { return memberId; }
 };
 
 // Derived Classes
@@ -70,6 +92,7 @@ private:
     vector<Member*> members;
 public:
     // Add a Book
+    vector<Member*> getMembers() { return members; }
     void addBook(string title, string author, int id) {
         books.push_back(Book(title, author, id));
     }
@@ -96,38 +119,52 @@ public:
     }
 
     // Borrow a Book
-    void borrowBook(int bookId) {
-        for (auto &book : books) {
-            if (book.getId() == bookId) {
-                if (book.getAvailability()) {
-                    book.setAvailability(false);
-                    cout << "Book borrowed successfully.\n";
-                    return;
-                } else {
-                    cout << "Book already borrowed.\n";
-                    return;
+void borrowBook(int bookId, int memberId) {
+    for (auto &book : books) {
+        if (book.getId() == bookId) {
+            if (book.getAvailability()) {
+                for (auto &member : members) {
+                    if (member->getId() == memberId) {
+                        book.setAvailability(false);
+                        member->addBorrowedBook(bookId);
+                        cout << "Book borrowed successfully.\n";
+                        return;
+                    }
                 }
+                cout << "Member not found.\n";
+                return;
+            } else {
+                cout << "Book already borrowed.\n";
+                return;
             }
         }
-        cout << "Book not found.\n";
     }
+    cout << "Book not found.\n";
+}
 
-    // Return a Book
-    void returnBook(int bookId) {
-        for (auto &book : books) {
-            if (book.getId() == bookId) {
-                if (!book.getAvailability()) {
-                    book.setAvailability(true);
-                    cout << "Book returned successfully.\n";
-                    return;
-                } else {
-                    cout << "Book is not borrowed.\n";
-                    return;
+void returnBook(int bookId, int memberId) {
+    for (auto &book : books) {
+        if (book.getId() == bookId) {
+            if (!book.getAvailability()) {
+                for (auto &member : members) {
+                    if (member->getId() == memberId) {
+                        book.setAvailability(true);
+                        member->returnBorrowedBook(bookId);
+                        cout << "Book returned successfully.\n";
+                        return;
+                    }
                 }
+                cout << "Member not found.\n";
+                return;
+            } else {
+                cout << "Book is not borrowed.\n";
+                return;
             }
         }
-        cout << "Book not found.\n";
     }
+    cout << "Book not found.\n";
+}
+
 
     // Delete a Book
     void deleteBook(int bookId) {
@@ -199,100 +236,169 @@ int main() {
     Library library;
     library.loadFromFile();
 
-    int choice, id;
+    int choice, id, memberId;  // Declare memberId here
     string title, author, name;
 
     while (true) {
         cout << "\nLibrary Management System\n";
-        cout << "1. Add Book\n2. Add Member\n3. Display Books\n4. Display Members\n5. Borrow Book\n6. Return Book\n7. Delete Book\n8. Exit\n";
+        cout << "1. Add Book\n2. Add Member\n3. Display Books\n4. Display Members\n5. Borrow Book\n6. Return Book\n7. Delete Book\n8. Borrowed Book By Member\n9. Returned Book By Member\n10. Exit\n";
         cout << "Enter choice: ";
 
         while (!(cin >> choice)) {
-            cin.clear(); // Clear error flag
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Invalid input. Please enter a number: ";
         }
 
-        try {
-            switch (choice) {
-                case 1:
-                    cout << "Enter Book Title: ";
-                    cin.ignore();
-                    getline(cin, title);
-                    cout << "Enter Author: ";
-                    getline(cin, author);
-                    cout << "Enter Book ID: ";
-                    while (!(cin >> id)) {
-                        cin.clear();
-                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        cout << "Invalid input. Please enter a valid Book ID: ";
+        switch (choice) {
+            case 1:
+                // Add Book
+                cout << "Enter Book Title: ";
+                cin.ignore();
+                getline(cin, title);
+                cout << "Enter Author: ";
+                getline(cin, author);
+                cout << "Enter Book ID: ";
+                while (!(cin >> id)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter a valid Book ID: ";
+                }
+                library.addBook(title, author, id);
+                break;
+
+            case 2:
+                // Add Member
+                cout << "Enter Member Name: ";
+                cin.ignore();
+                getline(cin, name);
+                cout << "Enter Member ID: ";
+                while (!(cin >> memberId)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter a valid Member ID: ";
+                }
+                cout << "Enter Type (1-Student, 2-Teacher): ";
+                int type;
+                while (!(cin >> type) || (type != 1 && type != 2)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter 1 for Student or 2 for Teacher: ";
+                }
+                if (type == 1)
+                    library.addMember(new StudentMember(name, memberId));
+                else
+                    library.addMember(new TeacherMember(name, memberId));
+                break;
+
+            case 3:
+                // Display Books
+                library.displayBooks();
+                break;
+
+            case 4:
+                // Display Members
+                library.displayMembers();
+                break;
+
+            case 5:
+                // Borrow Book
+                cout << "Enter Book ID to Borrow: ";
+                while (!(cin >> id)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter a valid Book ID: ";
+                }
+                cout << "Enter Member ID: ";
+                while (!(cin >> memberId)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter a valid Member ID: ";
+                }
+                library.borrowBook(id, memberId);
+                break;
+
+            case 6:
+                // Return Book
+                cout << "Enter Book ID to Return: ";
+                while (!(cin >> id)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter a valid Book ID: ";
+                }
+                cout << "Enter Member ID: ";
+                while (!(cin >> memberId)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter a valid Member ID: ";
+                }
+                library.returnBook(id, memberId);
+                break;
+
+            case 7:
+                // Delete Book
+                cout << "Enter Book ID to Delete: ";
+                while (!(cin >> id)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter a valid Book ID: ";
+                }
+                library.deleteBook(id);
+                break;
+
+            case 8:
+                // Display Borrowed Books by Member
+                cout << "Enter Member ID to view borrowed books: ";
+                while (!(cin >> memberId)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter a valid Member ID: ";
+                }
+
+                // Use the getter method to access members
+                for (auto &member : library.getMembers()) {
+                    if (member->getId() == memberId) {
+                        member->displayBorrowedBooks();
+                        break;
                     }
-                    library.addBook(title, author, id);
-                    break;
-                case 2:
-                    cout << "Enter Member Name: ";
-                    cin.ignore();
-                    getline(cin, name);
-                    cout << "Enter Member ID: ";
-                    while (!(cin >> id)) {
-                        cin.clear();
-                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        cout << "Invalid input. Please enter a valid Member ID: ";
+                }
+                break;
+
+            case 9:
+                // Return Book by Member
+                cout << "Enter Member ID to return books: ";
+                while (!(cin >> memberId)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter a valid Member ID: ";
+                }
+
+                // Use the getter method to access members
+                for (auto &member : library.getMembers()) {
+                    if (member->getId() == memberId) {
+                        int bookId;
+                        cout << "Enter Book ID to return: ";
+                        while (!(cin >> bookId)) {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "Invalid input. Please enter a valid Book ID: ";
+                        }
+                        library.returnBook(bookId, memberId);
+                        break;
                     }
-                    cout << "Enter Type (1-Student, 2-Teacher): ";
-                    int type;
-                    while (!(cin >> type) || (type != 1 && type != 2)) {
-                        cin.clear();
-                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        cout << "Invalid input. Please enter 1 for Student or 2 for Teacher: ";
-                    }
-                    if (type == 1)
-                        library.addMember(new StudentMember(name, id));
-                    else
-                        library.addMember(new TeacherMember(name, id));
-                    break;
-                case 3:
-                    library.displayBooks();
-                    break;
-                case 4:
-                    library.displayMembers();
-                    break;
-                case 5:
-                    cout << "Enter Book ID to Borrow: ";
-                    while (!(cin >> id)) {
-                        cin.clear();
-                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        cout << "Invalid input. Please enter a valid Book ID: ";
-                    }
-                    library.borrowBook(id);
-                    break;
-                case 6:
-                    cout << "Enter Book ID to Return: ";
-                    while (!(cin >> id)) {
-                        cin.clear();
-                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        cout << "Invalid input. Please enter a valid Book ID: ";
-                    }
-                    library.returnBook(id);
-                    break;
-                case 7:
-                    cout << "Enter Book ID to Delete: ";
-                    while (!(cin >> id)) {
-                        cin.clear();
-                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        cout << "Invalid input. Please enter a valid Book ID: ";
-                    }
-                    library.deleteBook(id);
-                    break;
-                case 8:
-                    library.saveToFile();
-                    cout << "Exiting...\n";
-                    return 0;
-                default:
-                    cout << "Invalid choice. Try again.\n";
-            }
-        } catch (exception &e) {
-            cout << "Error: " << e.what() << endl;
+                }
+                break;
+
+            case 10:
+                library.saveToFile();
+                cout << "Exiting...\n";
+                return 0;
+                break;
+
+
+            default:
+                cout << "Invalid choice. Try again.\n";
         }
     }
 }
+
