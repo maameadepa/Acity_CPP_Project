@@ -8,3 +8,10 @@ Library Members:
    ID                Name
     1              Warren
     2                Brew
+
+Books in Library:
+   ID               Title              Author              Status
+
+Library Members:
+   ID                Name
+    2                   w
