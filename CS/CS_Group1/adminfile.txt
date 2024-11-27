@@ -10,8 +10,33 @@ Cyril :
         }
 
 
+i finished : {
+    This implementation provides:
+        A Task class with priority levels (LOW, MEDIUM, HIGH)
+        A TaskManager class that handles task operations
+        File-based storage of tasks
+        A menu-driven interface
+        Complete task management functionality including:
+        Adding new tasks
+        Viewing all tasks
+        Marking tasks as completed
+        Removing tasks
+        Automatic saving/loading of tasks
+
+    The program uses:
+        Enums for task priorities
+        File I/O for persistent storage
+        Do-while loops for the menu system
+        For loops for task iteration
+        Vector for task storage
+        Proper error handling and input validation
+
+}
 
 
+errors or bugs faced : {
+     - im getting errors from the main class file as well as the taskmanager class fine so fix that 
+}
 
 
 
