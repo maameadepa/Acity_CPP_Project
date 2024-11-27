@@ -1,15 +1,19 @@
 #include <iostream>
 #include <vector>
-#include <iomanip>
 #include <string>
+#include "Loops.cpp"
+#include "Functions.cpp"
+
 using namespace std;
 
+// Structure to represent an item in the cart
 struct Item {
     string name;
     int quantity;
     double price;
 };
 
+// Class representing the ShoppingCart
 class ShoppingCart {
 public:
     vector<Item> items;
@@ -33,23 +37,7 @@ public:
             cout << "Your cart is empty!\n";
             return;
         }
-
-        cout << "\nYour Cart:\n";
-        cout << left << setw(20) << "Item Name" << setw(10) << "Quantity" << setw(10) << "Price\n";
-        cout << string(40, '-') << "\n";
-
-        for (const auto& item : items) {
-            cout << left << setw(20) << item.name
-                 << setw(10) << item.quantity
-                 << fixed << setprecision(2) << item.price << "\n";
-        }
-
-        double total = 0.0;
-        for (const auto& item : items) {
-            total += item.quantity * item.price;
-        }
-
-        cout << string(40, '-') << "\n";
-        cout << "Total: $" << fixed << setprecision(2) << total << "\n";
+        displayCartLoop(items); // Display items using loop
+        calculateTotal(items);  // Calculate the total price
     }
 };

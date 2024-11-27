@@ -1,15 +1,10 @@
 #include <iostream>
 #include <iomanip>
-#include <vector>
-#include <string>
+#include "Classes.cpp"
+
 using namespace std;
 
-struct Item {
-    string name;
-    int quantity;
-    double price;
-};
-
+// Function to calculate the total of the cart
 void calculateTotal(const vector<Item>& items) {
     double total = 0.0;
     for (const auto& item : items) {

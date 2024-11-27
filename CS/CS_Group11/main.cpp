@@ -1,32 +1,11 @@
 #include <iostream>
-#include <vector>
-#include <iomanip>
-#include <string>
-#include <fstream>
+#include "descisionmaking.cpp"
+#include "loops.cpp"
+#include "filehandler.cpp"
+#include "Fuctions.cpp"
+#include "Classes.cpp"
 
 using namespace std;
-
-// Struct for item
-struct Item {
-    string name;
-    int quantity;
-    double price;
-};
-
-// Shopping cart class
-class ShoppingCart {
-public:
-    vector<Item> items;
-
-    void addItem();
-    void viewCart();
-};
-
-// Function prototypes
-void invalidInput();
-void saveCart(const ShoppingCart& cart);
-void loadCart(ShoppingCart& cart);
-void calculateTotal(const vector<Item>& items);
 
 int main() {
     ShoppingCart cart;
@@ -43,23 +22,23 @@ int main() {
         cin >> choice;
 
         switch (choice) {
-        case 1:
-            cart.addItem();
-            break;
-        case 2:
-            cart.viewCart();
-            break;
-        case 3:
-            saveCart(cart);
-            break;
-        case 4:
-            loadCart(cart);
-            break;
-        case 5:
-            cout << "Exiting program. Goodbye!\n";
-            break;
-        default:
-            invalidInput();
+            case 1:
+                cart.addItem();
+                break;
+            case 2:
+                cart.viewCart();
+                break;
+            case 3:
+                saveCart(cart);
+                break;
+            case 4:
+                loadCart(cart);
+                break;
+            case 5:
+                cout << "Exiting program. Goodbye!\n";
+                break;
+            default:
+                invalidInput();
         }
     } while (choice != 5);
 

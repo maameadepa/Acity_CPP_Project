@@ -1,20 +1,10 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <string>
+#include "Classes.cpp"
+
 using namespace std;
 
-struct Item {
-    string name;
-    int quantity;
-    double price;
-};
-
-class ShoppingCart {
-public:
-    vector<Item> items;
-};
-
+// Function to save the cart to a file
 void saveCart(const ShoppingCart& cart) {
     ofstream file("CartDetails.txt");
     if (!file) {
@@ -28,6 +18,7 @@ void saveCart(const ShoppingCart& cart) {
     cout << "Cart saved successfully!\n";
 }
 
+// Function to load the cart from a file
 void loadCart(ShoppingCart& cart) {
     ifstream file("CartDetails.txt");
     if (!file) {

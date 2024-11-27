@@ -1,15 +1,10 @@
 #include <iostream>
 #include <iomanip>
-#include <vector>
-#include <string>
+#include "Classes.cpp"
+
 using namespace std;
 
-struct Item {
-    string name;
-    int quantity;
-    double price;
-};
-
+// Function to display the cart using loops
 void displayCartLoop(const vector<Item>& cart) {
     cout << "\nYour Cart:\n";
     cout << left << setw(20) << "Item Name" << setw(10) << "Quantity" << setw(10) << "Price\n";
