@@ -1,9 +1,10 @@
+#include<iostream>
+using namespace std;
+// CheckingAccount.h
+
 class CheckingAccount{
 
-    private:
-        string accNum;
-        
-
-
+    public:
+     
 
 };
