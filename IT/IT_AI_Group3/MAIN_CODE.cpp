@@ -1,18 +1,28 @@
 #include <iostream>
 #include <vector>
-#include <fstream>
-#include <ctime>
-#include "Account_class.cpp"
-#include "SavingsAccount_class.cpp"
-#include "CheckingAccount_class.cpp"
+#include "Account_class.h"
+#include "SavingsAccount_class.h"
+#include "CheckingAccount_class.h"
 
 using namespace std;
 
-void displayMenu();
-void performOperation(Account* account, vector<Account*>& accounts);
-Account* findAccount(const vector<Account*>& accounts, const string& accountNumber);
-void logTransaction(const string& sender, const string& receiver, double amount);
-void viewTransactionHistory();
+void displayMenu() {
+    cout << "\n--- Bank Account Management ---\n";
+    cout << "1. Create Savings Account\n";
+    cout << "2. Create Checking Account\n";
+    cout << "3. Access Account\n";
+    cout << "4. View Transaction History\n";
+    cout << "5. Exit\n";
+}
+
+Account* findAccount(const vector<Account*>& accounts, const string& accountNumber) {
+    for (auto account : accounts) {
+        if (account->getAccountNumber() == accountNumber) {
+            return account;
+        }
+    }
+    return nullptr;
+}
 
 int main() {
     vector<Account*> accounts;
@@ -62,16 +72,13 @@ int main() {
             cout << "Enter Account Number to access: ";
             cin >> accNum;
             account = findAccount(accounts, accNum);
-            if (account != nullptr) {
-                performOperation(account, accounts);
+            if (account) {
+                account->checkBalance();
             } else {
                 cout << "Account not found!\n";
             }
             break;
         }
-        case 4:
-            viewTransactionHistory();
-            break;
         case 5:
             cout << "Exiting program.\n";
             break;
@@ -80,7 +87,7 @@ int main() {
         }
     } while (choice != 5);
 
-    for (Account* acc : accounts) {
+    for (auto acc : accounts) {
         delete acc;
     }
 
