@@ -10,7 +10,7 @@ void displayMenu() {
     cout << "\n--- Bank Account Management ---\n";
     cout << "1. Create Savings Account\n";
     cout << "2. Create Checking Account\n";
-    cout << "3. Access Account\n";
+    cout << "3. Transfer Money\n";
     cout << "4. View Transaction History\n";
     cout << "5. Exit\n";
 }
@@ -22,6 +22,55 @@ Account* findAccount(const vector<Account*>& accounts, const string& accountNumb
         }
     }
     return nullptr;
+}
+
+void transferMoney(vector<Account*>& accounts) {
+    string senderAccNum, receiverAccNum;
+    double amount;
+
+    cout << "Enter Sender's Account Number: ";
+    cin >> senderAccNum;
+    Account* senderAccount = findAccount(accounts, senderAccNum);
+    if (!senderAccount) {
+        cout << "Sender account not found!\n";
+        return;
+    }
+
+    cout << "Enter Receiver's Account Number: ";
+    cin >> receiverAccNum;
+    Account* receiverAccount = findAccount(accounts, receiverAccNum);
+    if (!receiverAccount) {
+        cout << "Receiver account not found!\n";
+        return;
+    }
+
+    cout << "Enter amount to transfer: ";
+    cin >> amount;
+
+    if (senderAccount->getBalance() >= amount) {
+        senderAccount->withdraw(amount);
+        receiverAccount->deposit(amount);
+
+        // Log the transaction
+        Account::logTransaction(senderAccNum, receiverAccNum, amount);
+        cout << "Transfer successful!\n";
+    } else {
+        cout << "Insufficient funds for transfer!\n";
+    }
+}
+
+void viewTransactionHistory() {
+    ifstream logFile("transaction_history.txt");
+    if (logFile.is_open()) {
+        string line;
+        cout << "\nTransaction History:\n";
+        while (getline(logFile, line)) {
+            cout << line << endl;
+        }
+        logFile.close();
+    } else {
+        cout << "Error opening transaction history file.\n";
+    }
 }
 
 int main() {
@@ -69,14 +118,11 @@ int main() {
             break;
         }
         case 3: {
-            cout << "Enter Account Number to access: ";
-            cin >> accNum;
-            account = findAccount(accounts, accNum);
-            if (account) {
-                account->checkBalance();
-            } else {
-                cout << "Account not found!\n";
-            }
+            transferMoney(accounts);
+            break;
+        }
+        case 4: {
+            viewTransactionHistory();
             break;
         }
         case 5:
