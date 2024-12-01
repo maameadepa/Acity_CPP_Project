@@ -42,7 +42,18 @@ public:
     }
 
     virtual void saveToFile() const = 0; // Pure virtual for polymorphism
+
+    // Log transaction in the transaction history file
+    static void logTransaction(const string& sender, const string& receiver, double amount) {
+        ofstream logFile("transaction_history.txt", ios::app); // Append to file
+        if (logFile.is_open()) {
+            logFile << "Sender: " << sender << ", Receiver: " << receiver << ", Amount: " << amount << endl;
+            logFile.close();
+            cout << "Transaction logged successfully." << endl;
+        } else {
+            cout << "Error logging transaction." << endl;
+        }
+    }
 };
 
 #endif
-

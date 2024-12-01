@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "Account_class.h"
 #include "SavingsAccount_class.h"
 #include "CheckingAccount_class.h"
@@ -7,12 +8,15 @@
 using namespace std;
 
 void displayMenu() {
-    cout << "\n--- Bank Account Management ---\n";
+    cout << "\n-------------------------------\n";
+    cout << "--- Bank Account Management ---\n";
+    cout << "-------------------------------\n";
     cout << "1. Create Savings Account\n";
     cout << "2. Create Checking Account\n";
     cout << "3. Transfer Money\n";
     cout << "4. View Transaction History\n";
-    cout << "5. Exit\n";
+    cout << "5. Check Account Balance\n";
+    cout << "6. Exit\n";
 }
 
 Account* findAccount(const vector<Account*>& accounts, const string& accountNumber) {
@@ -56,6 +60,19 @@ void transferMoney(vector<Account*>& accounts) {
         cout << "Transfer successful!\n";
     } else {
         cout << "Insufficient funds for transfer!\n";
+    }
+}
+
+void CheckAccountBalance(const vector<Account*>& accounts) {
+    string accNum;
+    cout << "Enter Account Number to access: ";
+    cin >> accNum;
+
+    Account* account = findAccount(accounts, accNum);
+    if (account) {
+        account->checkBalance();
+    } else {
+        cout << "Account not found!\n";
     }
 }
 
@@ -125,17 +142,23 @@ int main() {
             viewTransactionHistory();
             break;
         }
-        case 5:
+        case 5: {
+            CheckAccountBalance(accounts);
+            break;
+        }
+        case 6:
             cout << "Exiting program.\n";
             break;
         default:
             cout << "Invalid choice! Try again.\n";
         }
-    } while (choice != 5);
+    } while (choice != 6);
 
+    // Clean up allocated memory
     for (auto acc : accounts) {
         delete acc;
     }
 
     return 0;
 }
+
