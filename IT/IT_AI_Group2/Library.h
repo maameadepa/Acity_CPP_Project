@@ -4,10 +4,10 @@
 #include "Book.h"
 #include "Member.h"
 #include <vector>
-#include <fstream> // For file handling
+#include <fstream>
 using namespace std;
 
-// Library system to manage books, members, and fines
+
 class Library {
 private:
     vector<Book> books;      // List of books
@@ -15,13 +15,13 @@ private:
     const double fineRate = 0.50; // Fine rate per overdue day
 
 public:
-    void addBook();          // Add a book
-    void displayBooks();     // Display all books
-    void addMember();        // Add a member
-    void displayMembers();   // Display all members
-    void issueBook();        // Issue a book
-    void returnBook();       // Return a book and calculate fine
-    void calculateFine();    // Calculate fine based on overdue days
+    void addBook();
+    void displayBooks();
+    void addMember();
+    void displayMembers();
+    void borrowBook();
+    void returnBook();
+    void calculateFine();
 };
 
 #endif
