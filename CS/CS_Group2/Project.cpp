@@ -74,16 +74,6 @@ public:
     int getId() { return memberId; }
 };
 
-// Derived Classes
-class StudentMember : public Member {
-public:
-    StudentMember(string n, int id) : Member(n, id) {}
-};
-
-class TeacherMember : public Member {
-public:
-    TeacherMember(string n, int id) : Member(n, id) {}
-};
 
 // Library Management System
 class Library {
