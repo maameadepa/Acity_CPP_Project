@@ -8,20 +8,6 @@
 #include <algorithm> // to find the value in range
 using namespace std;
 
-// Book Class
-class Book {
-private:
-    string title;
-    string author;
-    int id;
-    bool isAvailable;
-public:
-    Book(string t, string a, int i) {
-        title = t;
-        author = a;
-        id = i;
-        isAvailable = true;
-    }
 
     // Getters and Setters
     string getTitle() { return title; }
