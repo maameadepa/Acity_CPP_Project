@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <vector> //for precised arrays
+#include <vector> //for precised arrays.
 #include <iomanip>
 #include <string>
 #include <cstdlib>
