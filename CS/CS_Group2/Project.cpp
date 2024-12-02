@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector> //for precised arrays
-#include <iomanip>
 #include <string>
+#include <iomanip>
 #include <cstdlib>
 #include <limits>
 #include <algorithm> // to find the value in range
